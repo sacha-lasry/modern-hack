@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@convex-dev/better-auth": "^0.8.3",
     "@radix-ui/react-slot": "^1.2.3",
     "@useautumn/convex": "^0.0.10",
     "autumn-js": "^0.1.35",
