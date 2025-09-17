@@ -2,21 +2,24 @@ import { components } from "./_generated/api";
 import { Autumn } from "@useautumn/convex";
 
 export const autumn = new Autumn(components.autumn, {
-  secretKey: process.env.AUTUMN_SECRET_KEY ?? "",
-  identify: async (ctx: any) => {
-    const user = await ctx.auth.getUserIdentity();
-    if (!user) return null;
+	secretKey: process.env.AUTUMN_SECRET_KEY ?? "",
+	identify: async (ctx: any) => {
+		const user = await ctx.auth.getUserIdentity();
+		if (!user) return null
 
-    const userId = user.subject.split("|")[0];
-    return {
-      customerId: userId,
-      customerData: {
-        name: user.name as string,
-        email: user.email as string,
-      },
-    };
-  },
+		return {
+			customerId: user.subject as string,
+			customerData: {
+				name: user.name as string,
+				email: user.email as string,
+			},
+		};
+	},
 });
+
+/**
+ * These exports are required for our react hooks and components
+ */
 
 export const {
   track,

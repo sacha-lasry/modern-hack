@@ -31,13 +31,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AutumnProvider betterAuthUrl={process.env.NEXT_PUBLIC_BETTER_AUTH_URL}>
           <ConvexClientProvider>
-            <AuthUIWrapper>
-              {children}
+            <AutumnProvider betterAuthUrl={process.env.NEXT_PUBLIC_BETTER_AUTH_URL}>
+              <AuthUIWrapper>
+                {children}
               </AuthUIWrapper>
-            </ConvexClientProvider>
-        </AutumnProvider>
+            </AutumnProvider>
+          </ConvexClientProvider>
+        
         <Toaster />
       </body>
     </html>
