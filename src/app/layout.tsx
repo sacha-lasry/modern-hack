@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ConvexClientProvider } from "@/components/ConvexClientProvider";
-import { AutumnProvider } from "autumn-js/react";
+import { AutumnProvider } from "autumn-js/react"
+import { AuthUIWrapper } from "@/components/AuthUIWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +31,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AutumnProvider betterAuthUrl={process.env.NEXT_PUBLIC_BETTER_AUTH_URL}>
-          <ConvexClientProvider>{children}</ConvexClientProvider>
+          <ConvexClientProvider>
+            <AuthUIWrapper>
+              {children}
+              </AuthUIWrapper>
+            </ConvexClientProvider>
         </AutumnProvider>
       </body>
     </html>
