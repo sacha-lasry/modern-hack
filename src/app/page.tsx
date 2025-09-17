@@ -1,6 +1,5 @@
 "use client"
 
-import Image from "next/image";
 import {
   Authenticated,
   Unauthenticated,
@@ -12,7 +11,7 @@ export default function Home() {
   return (
     <main>
       <Unauthenticated>Logged out</Unauthenticated>
-      <Authenticated>Logged in</Authenticated>
+      <Authenticated> Logged in!</Authenticated>
       <AuthLoading>Loading...</AuthLoading>
     </main>
   );
