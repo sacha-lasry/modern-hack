@@ -1,7 +1,5 @@
-import { GitHubIcon, UserButton } from "@daveyplate/better-auth-ui"
+import { UserButton } from "@daveyplate/better-auth-ui"
 import Link from "next/link"
-
-import { Button } from "./ui/button"
 
 export function NavBar() {
     return (
@@ -30,13 +28,6 @@ export function NavBar() {
                     href="https://github.com/daveyplate/better-auth-nextjs-starter"
                     target="_blank"
                 >
-                    <Button
-                        variant="outline"
-                        size="icon"
-                        className="size-8 rounded-full"
-                    >
-                        <GitHubIcon />
-                    </Button>
                 </Link>
 
                 <UserButton size="icon" />

@@ -23,6 +23,12 @@ export const createAuth = (
     },
     baseUrl: siteUrl,
     database: authComponent.adapter(ctx),
+    account: {
+      accountLinking: {
+        enabled: true,
+        allowDifferentEmails: true,
+      },
+    },
     // Configure simple, non-verified email/password to get started
     emailAndPassword: {
       enabled: true,
@@ -32,6 +38,12 @@ export const createAuth = (
       // The Convex plugin is required for Convex compatibility
       convex(),
     ],
+    socialProviders: {
+      google: { 
+          clientId: process.env.GOOGLE_CLIENT_ID as string, 
+          clientSecret: process.env.GOOGLE_CLIENT_SECRET as string, 
+      }, 
+  },
   });
 };
 
