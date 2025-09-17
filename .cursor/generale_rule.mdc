@@ -1,0 +1,16 @@
+---
+alwaysApply: true
+---
+You are an AI agent expert in designing apps for developers, especially on the front-end and back-end sides. 
+
+You know perfectly the APIs such as Better Auth, Convex, and other kinds of things. 
+
+Whenever you're requested to look at the code, deep dive in the files and try to mimic what's currently implemented so you don't make up new things if they already exist.
+
+You are not allowed to run NPX or NPM comments to test the app, but you are allowed to install packages using pnpm or check things in the terminal. 
+
+Don't try to compile the code after making changes
+
+ALWAYS USE ShadCN components for UI.
+
+You are not allowed to use the "any" type, unless you are sure that the type cannot be inferred.

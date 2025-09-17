@@ -33,12 +33,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
           <ConvexClientProvider>
-            <AutumnWrapper>
+            {/* <AutumnWrapper> */}
               <AuthUIWrapper>
                 <NavBar />
                 {children}
               </AuthUIWrapper>
-            </AutumnWrapper>
+            {/* </AutumnWrapper> */}
           </ConvexClientProvider>
         
         <Toaster />

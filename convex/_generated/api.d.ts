@@ -45,7 +45,6 @@ export declare const internal: FilterApi<
 >;
 
 export declare const components: {
-  autumn: {};
   betterAuth: {
     adapter: {
       create: FunctionReference<

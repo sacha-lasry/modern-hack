@@ -3,7 +3,6 @@ import { convex } from "@convex-dev/better-auth/plugins";
 import { components } from "./_generated/api";
 import { DataModel } from "./_generated/dataModel";
 import { query } from "./_generated/server";
-import { autumn } from "autumn-js/better-auth";
 import { betterAuth } from "better-auth";
 
 const siteUrl = process.env.SITE_URL!;
@@ -32,14 +31,7 @@ export const createAuth = (
     plugins: [
       // The Convex plugin is required for Convex compatibility
       convex(),
-      autumn(),
     ],
-    socialProviders: {
-      google: { 
-        clientId: process.env.GOOGLE_CLIENT_ID as string, 
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET as string, 
-      }, 
-    },
   });
 };
 
