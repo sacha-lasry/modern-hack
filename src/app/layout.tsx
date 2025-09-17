@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ConvexClientProvider } from "@/components/ConvexClientProvider";
-import { AutumnProvider } from "autumn-js/react"
+import { AutumnWrapper } from "@/components/AutumnWrapper";
 import { AuthUIWrapper } from "@/components/AuthUIWrapper";
 import { Toaster } from "sonner"
 
@@ -32,11 +32,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
           <ConvexClientProvider>
-            <AutumnProvider betterAuthUrl={process.env.NEXT_PUBLIC_BETTER_AUTH_URL}>
+            <AutumnWrapper>
               <AuthUIWrapper>
                 {children}
               </AuthUIWrapper>
-            </AutumnProvider>
+            </AutumnWrapper>
           </ConvexClientProvider>
         
         <Toaster />
