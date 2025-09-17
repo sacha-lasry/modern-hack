@@ -4,6 +4,7 @@ import "./globals.css";
 import { ConvexClientProvider } from "@/components/ConvexClientProvider";
 import { AutumnProvider } from "autumn-js/react"
 import { AuthUIWrapper } from "@/components/AuthUIWrapper";
+import { Toaster } from "sonner"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +38,7 @@ export default function RootLayout({
               </AuthUIWrapper>
             </ConvexClientProvider>
         </AutumnProvider>
+        <Toaster />
       </body>
     </html>
   );
