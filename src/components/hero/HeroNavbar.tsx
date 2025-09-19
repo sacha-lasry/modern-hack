@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { HeroSignInButton } from "@/components/hero/HeroSignInButton";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { Authenticated, Unauthenticated, AuthLoading } from "convex/react";
+import Link from "next/link";
 
 const HeroNavbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -34,10 +36,11 @@ const HeroNavbar = () => {
       )}>
         <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
           {/* Logo */}
-          NICE APP
+          <Link href="/">NICE APP</Link>
 
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-6">
+            <Authenticated><Link href="/chat">Chat</Link></Authenticated>
             <ThemeToggle />
             <HeroSignInButton buttonText="Sign In" />
           </div>

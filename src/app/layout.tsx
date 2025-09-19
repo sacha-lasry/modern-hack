@@ -31,14 +31,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
           <ConvexClientProvider>
             <AutumnWrapper>
               <AuthUIWrapper>
                 {/* <NavBar /> */}
                 <HeroNavbar />
-                {children}
+                <main className="flex-1">
+                  {children}
+                </main>
                 <HeroFooter />
               </AuthUIWrapper>
             </AutumnWrapper>
