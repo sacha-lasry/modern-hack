@@ -35,7 +35,7 @@ export default function RootLayout({
           <ConvexClientProvider>
             <AutumnWrapper>
               <AuthUIWrapper>
-                <NavBar />
+                {/* <NavBar /> */}
                 {children}
               </AuthUIWrapper>
             </AutumnWrapper>
