@@ -6,6 +6,9 @@ const applicationTables = {
         name: v.string(),
         email: v.string(),
     }).index("by_email", ["email"]).index("by_name", ["name"]),
+    waitlist: defineTable({
+        email: v.string(),
+    }).index("by_email", ["email"]),
 }
 
 export default defineSchema({
