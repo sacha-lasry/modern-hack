@@ -1,15 +1,8 @@
 "use client"
 
-import {
-  Authenticated,
-  Unauthenticated,
-  AuthLoading,
-} from "convex/react";
-import { PricingTable } from "autumn-js/react";
 import { HeroNavbar } from "@/components/hero/HeroNavbar";
 import { HeroFooter } from "@/components/hero/HeroFooter";
 import { HeroSection } from "@/components/hero/HeroSection";
-import { HeroSignInButton } from "@/components/hero/HeroSignInButton";
 import Cal from "@calcom/embed-react";
 import { HeroWaitlist } from "@/components/hero/HeroWaitlist";
 

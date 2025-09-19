@@ -5,7 +5,6 @@ import { ConvexClientProvider } from "@/components/ConvexClientProvider";
 import { AutumnWrapper } from "@/components/AutumnWrapper";
 import { AuthUIWrapper } from "@/components/AuthUIWrapper";
 import { Toaster } from "sonner"
-import { NavBar } from "@/components/NavBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
