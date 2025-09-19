@@ -5,6 +5,8 @@ import { ConvexClientProvider } from "@/components/ConvexClientProvider";
 import { AutumnWrapper } from "@/components/AutumnWrapper";
 import { AuthUIWrapper } from "@/components/AuthUIWrapper";
 import { Toaster } from "sonner"
+import { HeroNavbar } from "@/components/hero/HeroNavbar";
+import { HeroFooter } from "@/components/hero/HeroFooter";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,7 +37,9 @@ export default function RootLayout({
             <AutumnWrapper>
               <AuthUIWrapper>
                 {/* <NavBar /> */}
+                <HeroNavbar />
                 {children}
+                <HeroFooter />
               </AuthUIWrapper>
             </AutumnWrapper>
           </ConvexClientProvider>
