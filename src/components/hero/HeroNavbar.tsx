@@ -28,7 +28,7 @@ const HeroNavbar = () => {
       <div className={cn(
         "max-w-6xl mx-auto transition-all duration-300 ease-in-out",
         isScrolled 
-          ? "max-w-5xl mt-4 rounded-2xl bg-background/10 backdrop-blur-md shadow-lg" 
+          ? "max-w-5xl mt-4 rounded-4xl bg-background/10 backdrop-blur-md shadow-lg" 
           : "bg-transparent"
       )}>
         <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">

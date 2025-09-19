@@ -20,7 +20,7 @@ export function HeroWaitlist() {
         <div className="max-w-lg mx-auto">
             {joined ? (
                 <div className="text-center font-medium py-4">
-                    Thanks for joining, we'll keep in touch
+                    Thanks for joining, we will keep you posted!
                 </div>
             ) : (
                 <div className="flex justify-center gap-2">
