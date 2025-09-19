@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { HeroSignInButton } from "@/components/hero/HeroSignInButton";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const HeroNavbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -37,6 +38,7 @@ const HeroNavbar = () => {
 
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-6">
+            <ThemeToggle />
             <HeroSignInButton buttonText="Sign In" />
           </div>
 

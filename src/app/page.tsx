@@ -19,12 +19,12 @@ export default function Home() {
           content={<HeroWaitlist />}
         />
 
-        <HeroSection
+        {/* <HeroSection
           id="intro"
           title="Contact Us" 
           description="Have questions? We would love to hear from you." 
-          content={<Cal calLink="sacha-lasry/30min" config={{ theme: "light" }}/>}
-        />
+          content={<Cal calLink="sacha-lasry/30min"/>}
+        /> */}
 
         {/* Footer */}
         <HeroFooter />
