@@ -12,6 +12,7 @@ import type * as auth from "../auth.js";
 import type * as autumn from "../autumn.js";
 import type * as http from "../http.js";
 import type * as users from "../users.js";
+import type * as utils from "../utils.js";
 
 import type {
   ApiFromModules,
@@ -32,6 +33,7 @@ declare const fullApi: ApiFromModules<{
   autumn: typeof autumn;
   http: typeof http;
   users: typeof users;
+  utils: typeof utils;
 }>;
 declare const fullApiWithMounts: typeof fullApi;
 

@@ -40,7 +40,10 @@ const HeroNavbar = () => {
 
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-6">
-            <Authenticated><Link href="/chat">Chat</Link></Authenticated>
+            <Authenticated>
+              <Link href="/summoner">Summoner</Link>
+              <Link href="/chat">Chat</Link>
+            </Authenticated>
             <ThemeToggle />
             <HeroSignInButton buttonText="Sign In" />
           </div>

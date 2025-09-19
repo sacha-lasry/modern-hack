@@ -5,7 +5,9 @@ const applicationTables = {
     users: defineTable({
         name: v.string(),
         email: v.string(),
-    }).index("by_email", ["email"]).index("by_name", ["name"]),
+        riotSummonerName: v.optional(v.string()),
+        riotPUUID: v.optional(v.string()),
+    }).index("by_email", ["email"]).index("by_name", ["name"]).index("by_riotPUUID", ["riotPUUID"]),
     waitlist: defineTable({
         email: v.string(),
     }).index("by_email", ["email"]),

@@ -1,6 +1,7 @@
-import { mutation } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { createAuth, authComponent } from "./auth";
+import { getAuthenticatedUserId } from "./utils";
 
 export const updateUserPassword = mutation({
   args: {
@@ -28,5 +29,27 @@ export const addToWaitlist = mutation({
       return;
     }
     return await ctx.db.insert("waitlist", { email: args.email });
+  },
+});
+
+export const updateRiotInfo = mutation({
+  args: {
+    riotPUUID: v.string(),
+    riotSummonerName: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const userId = await getAuthenticatedUserId(ctx);
+    return await ctx.db.patch(userId, { riotPUUID: args.riotPUUID, riotSummonerName: args.riotSummonerName });
+  },
+});
+
+export const getRiotInfo = query({
+  handler: async (ctx) => {
+    const userId = await getAuthenticatedUserId(ctx);
+    const user = await ctx.db.get(userId);
+    return {
+      riotPUUID: user?.riotPUUID,
+      riotSummonerName: user?.riotSummonerName,
+    };
   },
 });

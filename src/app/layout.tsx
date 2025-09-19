@@ -38,7 +38,7 @@ export default function RootLayout({
               <AuthUIWrapper>
                 {/* <NavBar /> */}
                 <HeroNavbar />
-                <main className="flex-1">
+                <main className="flex-1 pt-10">
                   {children}
                 </main>
                 <HeroFooter />
