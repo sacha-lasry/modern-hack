@@ -6,10 +6,10 @@ const HeroFooter = () => {
           {/* Logo and Copyright */}
           <div className="flex flex-col space-y-2">
             <div className="flex items-center">
-              NICE APP
+              LEAGUE AI COACH
             </div>
             <div className="text-sm pl-1">
-              © {new Date().getFullYear()} NICE APP. All rights reserved.
+              © {new Date().getFullYear()} LEAGUE AI COACH. All rights reserved.
             </div>
           </div>
         </div>

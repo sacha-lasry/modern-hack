@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { api } from "@/convex/_generated/api";
 import { useMutation } from "convex/react";
+import Image from "next/image";
 
 export function HeroWaitlist() {
     const [email, setEmail] = useState("");
@@ -23,18 +24,27 @@ export function HeroWaitlist() {
                     Thanks for joining, we will keep you posted!
                 </div>
             ) : (
-                <div className="flex justify-center gap-2">
-                    <Input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Enter your email"
+                <div className="flex flex-col items-center gap-4">
+                    <Image 
+                        src="/assets/waitlist_img.png" 
+                        alt="Riot" 
+                        width={1000} 
+                        height={1000} 
+                        className="rounded-lg"
                     />
-                    <Button
-                        onClick={handleJoinWaitlist}
-                    >
-                        Join Waitlist
-                    </Button>
+                    <div className="flex justify-center gap-2 w-full">
+                        <Input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Enter your email"
+                        />
+                        <Button
+                            onClick={handleJoinWaitlist}
+                        >
+                            Join Waitlist
+                        </Button>
+                    </div>
                 </div>
             )}
         </div>

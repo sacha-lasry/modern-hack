@@ -11,7 +11,7 @@ export default function Home() {
       <div className="relative z-10 w-full">
         <HeroSection
           id="waitlist"
-          title="Waitlist" 
+          title="Your dedicated League of Legends coach" 
           description="Join the waitlist to get notified when we launch." 
           content={<HeroWaitlist />}
         />

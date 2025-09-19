@@ -36,7 +36,7 @@ const HeroNavbar = () => {
       )}>
         <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
           {/* Logo */}
-          <Link href="/">NICE APP</Link>
+          <Link href="/">LEAGUE AI COACH</Link>
 
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-6">
