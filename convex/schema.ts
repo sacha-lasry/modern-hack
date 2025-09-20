@@ -8,6 +8,16 @@ const applicationTables = {
         riotSummonerName: v.optional(v.string()),
         riotPUUID: v.optional(v.string()),
     }).index("by_email", ["email"]).index("by_name", ["name"]).index("by_riotPUUID", ["riotPUUID"]),
+
+    matchPlayers: defineTable({
+        matchId: v.string(),
+        riotPUUID: v.string(),
+    }).index("by_matchId", ["matchId"]).index("by_riotPUUID", ["riotPUUID"]),
+
+    matches: defineTable({
+        matchId: v.string(),
+    }).index("by_matchId", ["matchId"]),
+
     waitlist: defineTable({
         email: v.string(),
     }).index("by_email", ["email"]),

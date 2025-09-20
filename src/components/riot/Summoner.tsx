@@ -16,7 +16,7 @@ export default function Summoner() {
     const [showLinkingForm, setShowLinkingForm] = useState(false);
     const updateRiotInfo = useMutation(api.users.updateRiotInfo);
     const riotInfo = useQuery(api.users.getRiotInfo);
-    const getAccount = useAction(api.riot.getAccount);
+    const getAccount = useAction(api.riotAPI.getAccount);
 
     const handleFindSummoner = async () => {
         setError(null);
