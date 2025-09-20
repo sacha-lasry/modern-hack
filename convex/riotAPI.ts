@@ -38,3 +38,14 @@ export const getMatchInfo = action({
         return matchInfo.response;
     },
 });
+
+export const getMatchTimeline = action({
+    args: {
+        riotMatchId: v.string(),
+    },
+    handler: async (_, args) => {
+        const lApi = new LolApi(process.env.RIOT_API_KEY as string)
+        const matchInfo = await lApi.MatchV5.timeline(args.riotMatchId, Constants.RegionGroups.EUROPE);
+        return matchInfo.response;
+    },
+});

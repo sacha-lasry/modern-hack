@@ -10,6 +10,7 @@ export default function Matches() {
     const riotInfo = useQuery(api.users.getRiotInfo);
     const getRiotMatchIdsAction = useAction(api.riotAPI.getRiotMatchIds);
     const getMatchInfoAction = useAction(api.riotAPI.getMatchInfo);
+    const getMatchTimelineAction = useAction(api.riotAPI.getMatchTimeline);
     const addMatchesMutation = useMutation(api.matches.addMatches);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -29,7 +30,8 @@ export default function Matches() {
             const newRiotMatchIds = riotMatchIds.filter((riotMatchId) => !matchPlayers?.some((matchPlayer) => matchPlayer.riotMatchId === riotMatchId));
             for (const riotMatchId of newRiotMatchIds) {
                 const matchInfo = await getMatchInfoAction({ riotMatchId });
-                await addMatchesMutation({ riotPUUID: riotInfo.riotPUUID, riotMatchId, matchInfo });
+                const matchTimeline = await getMatchTimelineAction({ riotMatchId });
+                await addMatchesMutation({ riotPUUID: riotInfo.riotPUUID, riotMatchId, matchInfo, matchTimeline });
             }
         } catch (err) {
             setError("Failed to fetch match history");
