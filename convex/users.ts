@@ -45,11 +45,11 @@ export const updateRiotInfo = mutation({
 
 export const getRiotInfo = query({
   handler: async (ctx) => {
-    const userId = await getAuthenticatedUserId(ctx);
-    const user = await ctx.db.get(userId);
-    return {
+      const userId = await getAuthenticatedUserId(ctx);
+      const user = await ctx.db.get(userId);
+      return {
       riotPUUID: user?.riotPUUID,
       riotSummonerName: user?.riotSummonerName,
-    };
+      };
   },
 });

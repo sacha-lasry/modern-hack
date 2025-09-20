@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
 import { api } from "@/convex/_generated/api";
-import { useMutation, useQuery } from "convex/react";
+import { useMutation, useQuery, useAction } from "convex/react";
 import { toast } from "sonner";
 
 export default function Summoner() {
@@ -16,12 +16,13 @@ export default function Summoner() {
     const [showLinkingForm, setShowLinkingForm] = useState(false);
     const updateRiotInfo = useMutation(api.users.updateRiotInfo);
     const riotInfo = useQuery(api.users.getRiotInfo);
+    const getAccount = useAction(api.riot.getAccount);
 
     const handleFindSummoner = async () => {
         setError(null);
         setSummonerData(null);
         try {
-            const summoner = await getAccount(summonerName);
+            const summoner = await getAccount({ summonerName });
             setSummonerData(summoner);
         } catch (err: any) {
             toast.error("Summoner not found");
@@ -110,8 +111,8 @@ export default function Summoner() {
                 {summonerData && (
                     <div className="mt-4 space-y-4">
                         <div>
-                            <p className="text-sm text-gray-600 mb-2">Found Summoner:</p>
-                            <pre className="whitespace-pre-wrap break-all text-xs bg-gray-50 p-2 rounded">
+                            <p className="text-sm mb-2">Found Summoner:</p>
+                            <pre className="whitespace-pre-wrap break-all text-xs p-2 rounded">
                                 {JSON.stringify(summonerData, null, 2)}
                             </pre>
                         </div>

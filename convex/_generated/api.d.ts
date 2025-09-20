@@ -11,6 +11,7 @@
 import type * as auth from "../auth.js";
 import type * as autumn from "../autumn.js";
 import type * as http from "../http.js";
+import type * as riot from "../riot.js";
 import type * as users from "../users.js";
 import type * as utils from "../utils.js";
 
@@ -32,6 +33,7 @@ declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   autumn: typeof autumn;
   http: typeof http;
+  riot: typeof riot;
   users: typeof users;
   utils: typeof utils;
 }>;
