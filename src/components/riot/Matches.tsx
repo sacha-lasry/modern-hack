@@ -8,14 +8,16 @@ import { useState } from "react";
 
 export default function Matches() {
     const riotInfo = useQuery(api.users.getRiotInfo);
-    const getMatchIdsAction = useAction(api.riotAPI.getMatchIds);
-    const upsertMatchPlayersAction = useMutation(api.matches.upsertMatchPlayers);
+    const getRiotMatchIdsAction = useAction(api.riotAPI.getRiotMatchIds);
+    const getMatchInfoAction = useAction(api.riotAPI.getMatchInfo);
+    const addMatchesMutation = useMutation(api.matches.addMatches);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
     const matchPlayers = useQuery(api.matches.getMatchPlayers, { riotPUUID: riotInfo?.riotPUUID });
-    const matchIds = matchPlayers?.map((matchPlayer) => matchPlayer.matchId);
-    const handleGetMatchHistory = async () => {
+    const riotMatchIds = matchPlayers?.map((matchPlayer) => matchPlayer.riotMatchId);
+
+    const handleRefreshtMatchHistory = async () => {
         if (!riotInfo?.riotPUUID) {
             setError("Please link your Riot account first");
             return;
@@ -23,8 +25,12 @@ export default function Matches() {
         setLoading(true);
         setError(null);
         try {
-            const matchIds = await getMatchIdsAction({ PUUID: riotInfo.riotPUUID });
-            await upsertMatchPlayersAction({ riotPUUID: riotInfo.riotPUUID, matchIds: matchIds });
+            const riotMatchIds = await getRiotMatchIdsAction({ PUUID: riotInfo.riotPUUID });
+            const newRiotMatchIds = riotMatchIds.filter((riotMatchId) => !matchPlayers?.some((matchPlayer) => matchPlayer.riotMatchId === riotMatchId));
+            for (const riotMatchId of newRiotMatchIds) {
+                const matchInfo = await getMatchInfoAction({ riotMatchId });
+                await addMatchesMutation({ riotPUUID: riotInfo.riotPUUID, riotMatchId, matchInfo });
+            }
         } catch (err) {
             setError("Failed to fetch match history");
             console.error(err);
@@ -40,7 +46,7 @@ export default function Matches() {
             </CardHeader>
             <CardContent className="space-y-4">
                 <Button 
-                    onClick={handleGetMatchHistory} 
+                    onClick={handleRefreshtMatchHistory} 
                     disabled={loading || !riotInfo?.riotPUUID}
                     className="w-full"
                 >
@@ -57,18 +63,18 @@ export default function Matches() {
                     <p className="text-sm">Link your Riot account to view match history</p>
                 )}
                 
-                {matchIds && matchIds.length > 0 && (
+                {riotMatchIds && riotMatchIds.length > 0 && (
                     <div className="space-y-2">
                         <p className="text-sm">
-                            Recent {matchIds.length} matches:
+                            Recent {riotMatchIds.length} matches:
                         </p>
                         <div className="grid gap-2 max-h-96 overflow-y-auto">
-                            {matchIds.map((matchId, index) => (
+                            {riotMatchIds.map((riotMatchId, index) => (
                                 <div 
-                                    key={matchId} 
+                                    key={riotMatchId} 
                                     className="flex items-center justify-between p-3 rounded-lg transition-colors"
                                 >
-                                    <span className="font-mono text-sm">{matchId}</span>
+                                    <span className="font-mono text-sm">{riotMatchId}</span>
                                     <span className="text-xs">#{index + 1}</span>
                                 </div>
                             ))}
@@ -76,7 +82,7 @@ export default function Matches() {
                     </div>
                 )}
                 
-                {matchIds && matchIds.length === 0 && (
+                {riotMatchIds && riotMatchIds.length === 0 && (
                     <p className="text-sm">No recent matches found</p>
                 )}
             </CardContent>

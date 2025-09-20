@@ -1,17 +1,18 @@
 import { action, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { createAuth, authComponent } from "./auth";
+import { internal } from "./_generated/api";
 import { getAuthenticatedUserId } from "./utils";
 
 export const getMatchPlayers = query({
   args: {
-    matchId: v.optional(v.string()),
+    riotMatchId: v.optional(v.string()),
     riotPUUID: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     let matchPlayers = await ctx.db.query("matchPlayers").collect();
-    if (args.matchId) {
-      matchPlayers = matchPlayers.filter((matchPlayer) => matchPlayer.matchId === args.matchId);
+    if (args.riotMatchId) {
+      matchPlayers = matchPlayers.filter((matchPlayer) => matchPlayer.riotMatchId === args.riotMatchId);
     }
     if (args.riotPUUID) {
       matchPlayers = matchPlayers.filter((matchPlayer) => matchPlayer.riotPUUID === args.riotPUUID);
@@ -20,16 +21,15 @@ export const getMatchPlayers = query({
   },
 });
 
-export const upsertMatchPlayers = mutation({
+
+export const addMatches = mutation({
   args: {
     riotPUUID: v.string(),
-    matchIds: v.array(v.string()),
+    riotMatchId: v.string(),
+    matchInfo: v.optional(v.record(v.string(), v.any())),
   },
   handler: async (ctx, args) => {
-    const matchPlayers = await ctx.db.query("matchPlayers").withIndex("by_riotPUUID", (q) => q.eq("riotPUUID", args.riotPUUID)).collect();
-    const newMatchIds = args.matchIds.filter((matchId) => !matchPlayers.some((matchPlayer) => matchPlayer.matchId === matchId));
-    for (const matchId of newMatchIds) {
-      await ctx.db.insert("matchPlayers", { matchId, riotPUUID: args.riotPUUID });
-    }
+    await ctx.db.insert("matchPlayers", { riotMatchId: args.riotMatchId, riotPUUID: args.riotPUUID });
+    await ctx.db.insert("matches", { riotMatchId: args.riotMatchId, matchInfo: args.matchInfo });
   },
 });

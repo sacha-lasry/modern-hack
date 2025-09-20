@@ -10,13 +10,14 @@ const applicationTables = {
     }).index("by_email", ["email"]).index("by_name", ["name"]).index("by_riotPUUID", ["riotPUUID"]),
 
     matchPlayers: defineTable({
-        matchId: v.string(),
+        riotMatchId: v.string(),
         riotPUUID: v.string(),
-    }).index("by_matchId", ["matchId"]).index("by_riotPUUID", ["riotPUUID"]),
+    }).index("by_riotMatchId", ["riotMatchId"]).index("by_riotPUUID", ["riotPUUID"]),
 
     matches: defineTable({
-        matchId: v.string(),
-    }).index("by_matchId", ["matchId"]),
+        riotMatchId: v.string(),
+        matchInfo: v.optional(v.record(v.string(), v.any())),
+    }).index("by_riotMatchId", ["riotMatchId"]),
 
     waitlist: defineTable({
         email: v.string(),
