@@ -1,4 +1,4 @@
-import { mutation, query } from "./_generated/server";
+import { action, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { createAuth, authComponent } from "./auth";
 import { getAuthenticatedUserId } from "./utils";
@@ -38,8 +38,8 @@ export const updateRiotInfo = mutation({
     riotSummonerName: v.string(),
   },
   handler: async (ctx, args) => {
-    const userId = await getAuthenticatedUserId(ctx);
-    return await ctx.db.patch(userId, { riotPUUID: args.riotPUUID, riotSummonerName: args.riotSummonerName });
+      const userId = await getAuthenticatedUserId(ctx);
+      return await ctx.db.patch(userId, { riotPUUID: args.riotPUUID, riotSummonerName: args.riotSummonerName });
   },
 });
 
