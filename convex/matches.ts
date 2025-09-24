@@ -26,11 +26,13 @@ export const addMatches = mutation({
   args: {
     riotPUUID: v.string(),
     riotMatchId: v.string(),
-    matchInfo: v.optional(v.record(v.string(), v.any())),
-    matchTimeline: v.optional(v.record(v.string(), v.any())),
+    // matchInfo: v.optional(v.record(v.string(), v.any())),
+    // matchTimeline: v.optional(v.record(v.string(), v.any())),
+    matchInfoId: v.optional(v.id("_storage")),
+    matchTimelineId: v.optional(v.id("_storage")),
   },
   handler: async (ctx, args) => {
     await ctx.db.insert("matchPlayers", { riotMatchId: args.riotMatchId, riotPUUID: args.riotPUUID });
-    await ctx.db.insert("matches", { riotMatchId: args.riotMatchId, matchInfo: args.matchInfo, matchTimeline: args.matchTimeline });
+    await ctx.db.insert("matches", { riotMatchId: args.riotMatchId, matchInfoId: args.matchInfoId, matchTimelineId: args.matchTimelineId });
   },
 });

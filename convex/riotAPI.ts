@@ -3,6 +3,7 @@
 import { action, internalAction } from "./_generated/server";
 import { v } from "convex/values";
 import { RiotApi, Constants, LolApi } from 'twisted'
+import { Id } from "./_generated/dataModel";
 
 export const getAccount = action({
     args: {
@@ -32,10 +33,14 @@ export const getMatchInfo = action({
     args: {
         riotMatchId: v.string(),
     },
-    handler: async (_, args) => {
+    handler: async (ctx, args) => {
         const lApi = new LolApi(process.env.RIOT_API_KEY as string)
         const matchInfo = await lApi.MatchV5.get(args.riotMatchId, Constants.RegionGroups.EUROPE);
-        return matchInfo.response;
+        // Convert the response to a blob explicitly
+        const jsonString = JSON.stringify(matchInfo.response);
+        const blob = new Blob([jsonString], { type: 'application/json' });
+        const storageId: Id<"_storage"> = await ctx.storage.store(blob);
+        return storageId;
     },
 });
 
@@ -43,9 +48,13 @@ export const getMatchTimeline = action({
     args: {
         riotMatchId: v.string(),
     },
-    handler: async (_, args) => {
+    handler: async (ctx, args) => {
         const lApi = new LolApi(process.env.RIOT_API_KEY as string)
-        const matchInfo = await lApi.MatchV5.timeline(args.riotMatchId, Constants.RegionGroups.EUROPE);
-        return matchInfo.response;
+        const matchTimeline = await lApi.MatchV5.timeline(args.riotMatchId, Constants.RegionGroups.EUROPE);
+        // Convert the response to a blob explicitly
+        const jsonString = JSON.stringify(matchTimeline.response);
+        const blob = new Blob([jsonString], { type: 'application/json' });
+        const storageId: Id<"_storage"> = await ctx.storage.store(blob);
+        return storageId;
     },
 });

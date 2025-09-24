@@ -16,8 +16,10 @@ const applicationTables = {
 
     matches: defineTable({
         riotMatchId: v.string(),
-        matchInfo: v.optional(v.record(v.string(), v.any())),
-        matchTimeline: v.optional(v.record(v.string(), v.any())),
+        // matchInfo: v.optional(v.record(v.string(), v.any())),
+        // matchTimeline: v.optional(v.record(v.string(), v.any())),
+        matchInfoId: v.optional(v.id("_storage")),
+        matchTimelineId: v.optional(v.id("_storage")),
     }).index("by_riotMatchId", ["riotMatchId"]),
 
     waitlist: defineTable({
