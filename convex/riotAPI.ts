@@ -4,14 +4,29 @@ import { action, internalAction } from "./_generated/server";
 import { v } from "convex/values";
 import { RiotApi, Constants, LolApi } from 'twisted'
 import { Id } from "./_generated/dataModel";
+import { AccountAPIRegionGroups } from "twisted/dist/constants/regions";
 
 export const getAccount = action({
     args: {
         summonerName: v.string(),
+        tagline: v.string(),
+        regionGroup: v.string(),
     },
     handler: async (_, args) => {
         const rApi = new RiotApi(process.env.RIOT_API_KEY as string)
-        const account = await rApi.Account.getByRiotId(args.summonerName, "EUW", Constants.RegionGroups.EUROPE);
+        let riotRegionGroup: AccountAPIRegionGroups;
+        if (args.regionGroup === "EUROPE") {
+            riotRegionGroup = Constants.RegionGroups.EUROPE;
+        } else if (args.regionGroup === "AMERICAS") {
+            riotRegionGroup = Constants.RegionGroups.AMERICAS;
+        } else if (args.regionGroup === "ASIA") {
+            riotRegionGroup = Constants.RegionGroups.ASIA;
+        } else if (args.regionGroup === "SEA") {
+            riotRegionGroup = Constants.RegionGroups.SEA as AccountAPIRegionGroups;
+        } else {
+            throw new Error("Invalid region group");
+        }
+        const account = await rApi.Account.getByRiotId(args.summonerName, args.tagline, riotRegionGroup);
         return account.response;
     },
 });

@@ -12,7 +12,7 @@ export async function getMatches (
   PUUID: string,
   options?: { count?: number; startTime?: number; endTime?: number }
 ) {
-  const query: any = {};
+  const query: { count?: number; startTime?: number; endTime?: number } = {};
   if (options?.count !== undefined) query.count = options.count;
   if (options?.startTime !== undefined) query.startTime = options.startTime;
   if (options?.endTime !== undefined) query.endTime = options.endTime;

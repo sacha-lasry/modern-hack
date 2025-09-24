@@ -1,17 +1,20 @@
 "use client"
 
 import { Input } from "@/components/ui/input";
-import { getAccount } from "@/lib/riot";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
 import { api } from "@/convex/_generated/api";
 import { useMutation, useQuery, useAction } from "convex/react";
 import { toast } from "sonner";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import { AccountDto } from "twisted/dist/models-dto/account/account.dto";
 
 export default function Summoner() {
     const [summonerName, setSummonerName] = useState("");
-    const [summonerData, setSummonerData] = useState<any | null>(null);
+    const [tagline, setTagline] = useState("");
+    const [regionGroup, setRegionGroup] = useState("EUROPE");
+    const [summonerData, setSummonerData] = useState<AccountDto | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [showLinkingForm, setShowLinkingForm] = useState(false);
     const updateRiotInfo = useMutation(api.users.updateRiotInfo);
@@ -22,19 +25,22 @@ export default function Summoner() {
         setError(null);
         setSummonerData(null);
         try {
-            const summoner = await getAccount({ summonerName });
+            const summoner = await getAccount({ summonerName, tagline, regionGroup });
             setSummonerData(summoner);
-        } catch (err: any) {
+        } catch {
             toast.error("Summoner not found");
         }
     };
 
     const handleUpdateRiotInfo = async () => {
         try {
+            if (!summonerData) {
+                throw new Error("Summoner data not found");
+            }
             await updateRiotInfo({ riotPUUID: summonerData.puuid, riotSummonerName: summonerData.gameName });
             toast.success("Riot PUUID updated successfully.");
             setShowLinkingForm(false); // Hide linking form after successful update
-        } catch (err: any) {
+        } catch {
             setError("Error updating Riot PUUID.");
         }
     };
@@ -102,6 +108,25 @@ export default function Summoner() {
                     onChange={(e) => setSummonerName(e.target.value)}
                     placeholder="Enter summoner name"
                 />
+                <Input
+                    value={tagline}
+                    onChange={(e) => setTagline(e.target.value)}
+                    placeholder="Enter tagline"
+                />
+                <Select
+                    value={regionGroup}
+                    onValueChange={(value) => setRegionGroup(value)}
+                >
+                    <SelectTrigger>
+                        <SelectValue placeholder="Select region group" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="EUROPE">EUROPE</SelectItem>
+                        <SelectItem value="AMERICAS">AMERICAS</SelectItem>
+                        <SelectItem value="ASIA">ASIA</SelectItem>
+                        <SelectItem value="SEA">SEA</SelectItem>
+                    </SelectContent>
+                </Select>
                 <Button onClick={handleFindSummoner}>Find Summoner</Button>
                 {error && (
                     <div className="text-red-500 text-sm">
